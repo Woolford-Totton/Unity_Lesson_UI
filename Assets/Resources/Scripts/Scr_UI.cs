@@ -6,11 +6,15 @@ using UnityEngine.Windows;
 
 public class Scr_UI : MonoBehaviour
 {
-    private byte[] fileData;
+   
 
     private Button Mybutton = null;
 
     private Text Mytext = null;
+
+    private Image Myimage = null;
+
+    private byte[] fileData;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +46,27 @@ public class Scr_UI : MonoBehaviour
 
         Mytext.transform.Translate((Screen.width * 1.0f), (Screen.height * 1.0f) - Rect_text.rect.height * 0.5f, 0);
 
+        var prefabimage = Resources.Load("Prefab/Prefab_UI_Image");
+
+        GameObject Image_object = (GameObject)Instantiate(prefabimage, new Vector3(0, 0, 0), Quaternion.identity);
+
+        Myimage = Image_object.GetComponent<Image>();
+
+        Myimage.transform.SetParent(this.gameObject.GetComponent<RectTransform>());
+
+        
+            
+        string filePath = "Assets/images/Love_Heart_symbol";
+       
+        Sprite heartimage=Resources.Load<Sprite>(filePath) as Sprite;
+
+        Myimage.sprite = heartimage;
+
+        RectTransform Rect_image = Image_object.GetComponent<RectTransform>();
+
+        Myimage.transform.Translate((Screen.width * 0.5f), (Screen.height * 0.5f) - Rect_image.rect.height * 0.0f, 0);
+
+
 
 
 
@@ -60,13 +85,13 @@ public class Scr_UI : MonoBehaviour
 
         btntext.text = "Changed text";
     }
-    private void OnGUI()
-    {
-        Texture2D mytexture = new Texture2D(2,2);
-        string filePath = "Assets/Resources/Assets/images/Love_Heart_symbol.png";
-        fileData = File.ReadAllBytes(filePath);
-        mytexture.LoadImage(fileData);
-        GUI.DrawTexture(new Rect(Screen.width * 0.0f, Screen.height * 0.75f, Screen.width*0.25f, Screen.height*0.25f), mytexture);
-    }
+    //private void OnGUI()
+    //{
+    //    Texture2D mytexture = new Texture2D(2,2);
+    //    string filePath = "Assets/Resources/Assets/images/Love_Heart_symbol.png";
+    //    fileData = File.ReadAllBytes(filePath);
+    //    mytexture.LoadImage(fileData);
+    //    GUI.DrawTexture(new Rect(Screen.width * 0.0f, Screen.height * 0.75f, Screen.width*0.25f, Screen.height*0.25f), mytexture);
+    //}
 }
 
